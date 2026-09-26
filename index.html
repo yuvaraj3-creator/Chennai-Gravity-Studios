@@ -2,7 +2,21 @@
 const menuToggle=document.getElementById('menuToggle'),sideMenu=document.getElementById('sideMenu'),menuOverlay=document.getElementById('menuOverlay'),menuClose=document.getElementById('menuClose');
 function setMenu(open){sideMenu.classList.toggle('open',open);menuOverlay.classList.toggle('show',open);menuToggle.classList.toggle('active',open);menuToggle.setAttribute('aria-expanded',open);document.body.classList.toggle('menu-open',open)}
 menuToggle.addEventListener('click',()=>setMenu(true));menuClose.addEventListener('click',()=>setMenu(false));menuOverlay.addEventListener('click',()=>setMenu(false));document.querySelectorAll('.side-nav a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+
+/* Featured video: starts with the requested video, then can be switched to the channel's newest upload. */
 const featuredVideo=document.querySelector('.video-frame iframe');
-const featuredVideoId='xiaNI-hT_XU';
-if(featuredVideo){featuredVideo.src='https://www.youtube.com/embed/'+featuredVideoId+'?rel=0&modestbranding=1';}
+const requestedVideoId='xiaNI-hT_XU';
+const channelHandle='@chennaigravity2805';
+if(featuredVideo){
+  featuredVideo.src='https://www.youtube.com/embed/'+requestedVideoId+'?rel=0&modestbranding=1';
+  /*
+    The static site intentionally does not expose a YouTube API key.
+    When a channel-feed endpoint is configured, call setLatestYouTubeVideo(id)
+    to replace the featured video without changing the page markup.
+  */
+  window.setLatestYouTubeVideo=function(videoId){
+    if(!videoId || !/^[A-Za-z0-9_-]{11}$/.test(videoId)) return;
+    featuredVideo.src='https://www.youtube.com/embed/'+videoId+'?rel=0&modestbranding=1';
+  };
+}
 </script></body></html>
