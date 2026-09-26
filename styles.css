@@ -10,8 +10,8 @@ header>.brand{display:block}
 .menu-toggle:hover{background:var(--text);border-color:var(--text)}
 .menu-toggle:hover span{background:var(--bg)}
 .menu-toggle.active{position:relative;z-index:70}
-.side-menu{position:fixed;top:0;right:0;width:min(430px,88vw);height:100vh;background:var(--bg);z-index:60;transform:translateX(105%);transition:transform .45s cubic-bezier(.22,1,.36,1);box-shadow:-25px 0 70px rgba(42,32,32,.12);padding:32px 38px;display:flex;flex-direction:column}
-.side-menu.open{transform:translateX(0)}
+.side-menu{position:fixed;top:0;right:0;width:min(430px,88vw);height:100vh;background:var(--bg);z-index:60;transform:translateX(110%);visibility:hidden;opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .25s ease,visibility 0s linear .45s;box-shadow:-25px 0 70px rgba(42,32,32,.12);padding:32px 38px;display:flex;flex-direction:column}
+.side-menu.open{transform:translateX(0);visibility:visible;opacity:1;pointer-events:auto;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .25s ease,visibility 0s linear 0s}
 .side-menu-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:35px;border-bottom:1px solid var(--line)}
 .side-menu-top .brand{width:auto}
 .menu-close{width:42px;height:42px;border:1px solid var(--line);background:transparent;font-size:28px;line-height:1;cursor:pointer;color:var(--text)}
