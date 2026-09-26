@@ -56,3 +56,6 @@ img,iframe{max-width:100%}
   .gallery-grid figure,.gallery-grid figure.wide{width:100%;min-width:0}
   .gallery-grid img{width:100%;max-width:100%;height:auto;min-height:380px;object-fit:cover}
 }
+
+.instagram-reel-card{padding:16px;overflow:hidden}.instagram-embed-wrap{background:#fff;min-height:420px;display:flex;justify-content:center;align-items:flex-start;overflow:hidden}.instagram-embed-wrap .instagram-media{margin:0!important;min-width:0!important;width:100%!important;max-width:540px!important}.instagram-reel-card .media-caption{padding-left:5px}.instagram-reel-card .media-label{margin:3px 0 13px}
+@media(max-width:800px){.instagram-embed-wrap{min-height:0}.instagram-reel-card{width:100%}}
