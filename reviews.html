@@ -1,14 +1,120 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="description" content="Client reviews for Chennai Gravity Studios. Read experiences and share your feedback."><title>Reviews | Chennai Gravity Studios</title><link rel="stylesheet" href="styles.css"></head><body><header><a class="brand" href="index.html"><span>CHENNAI</span><strong>GRAVITY</strong><small>STUDIOS</small></a><button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button><div class="side-menu" id="sideMenu"><div class="side-menu-top"><a class="brand" href="index.html"><span>CHENNAI</span><strong>GRAVITY</strong><small>STUDIOS</small></a><button class="menu-close" id="menuClose" aria-label="Close menu">×</button></div><nav class="side-nav"><a href="index.html">Home <span>01</span></a><a href="about.html">About <span>02</span></a><a href="services.html">Services <span>03</span></a><a href="portfolio.html">Portfolio <span>04</span></a><a href="reviews.html">Reviews <span>05</span></a><a href="contact.html">Contact <span>06</span></a></nav><div class="side-menu-bottom"><a href="https://www.instagram.com/chennaigravitystudios?stkn=cXQwcTYzNXhwazcz" target="_blank" rel="noopener">Instagram ↗</a><a href="https://youtube.com/@chennaigravity2805?si=CINxiaw2oVml3UkT" target="_blank" rel="noopener">YouTube ↗</a></div></div><div class="menu-overlay" id="menuOverlay"></div></header><main><section class="page-hero"><p class="eyebrow">CLIENT REVIEWS</p><h1>Real words.<br><em>Real stories.</em></h1><p>Read feedback shared by clients and leave your own review after your experience with Chennai Gravity Studios.</p></section><section class="section reviews-layout"><div><div class="rating-panel"><span class="eyebrow">YOUR EXPERIENCE MATTERS</span><div class="rating-big"><strong id="averageRating">0.0</strong><span>/ 5</span></div><div id="averageStars" class="stars">☆☆☆☆☆</div><p><span id="reviewCount">0</span> reviews</p></div><div class="review-list" id="reviewList"></div></div><aside class="review-form-card"><p class="eyebrow">SHARE YOUR EXPERIENCE</p><h2>Leave a <em>review.</em></h2><form id="reviewForm"><label>Name<input id="reviewName" maxlength="60" required placeholder="Your name"></label><label>Rating<select id="reviewRating" required><option value="">Select rating</option><option value="5">★★★★★ — 5</option><option value="4">★★★★☆ — 4</option><option value="3">★★★☆☆ — 3</option><option value="2">★★☆☆☆ — 2</option><option value="1">★☆☆☆☆ — 1</option></select></label><label>Your review<textarea id="reviewText" maxlength="500" rows="6" required placeholder="Tell us about your experience..."></textarea></label><button class="btn" type="submit">Submit Review ↗</button><p class="form-note">Reviews submitted here are stored in this browser. Connect a database/backend before production if you want every visitor to see the same reviews.</p><p id="reviewMessage" class="review-message" aria-live="polite"></p></form></aside></section></main><footer><span>© Chennai Gravity Studios</span><span>Wedding Photography & Cinematography</span><div class="footer-social"><a href="https://www.instagram.com/chennaigravitystudios?stkn=cXQwcTYzNXhwazcz" target="_blank" rel="noopener">Instagram</a><a href="https://youtube.com/@chennaigravity2805?si=CINxiaw2oVml3UkT" target="_blank" rel="noopener">YouTube</a><a href="reviews.html">Reviews</a></div></footer><a class="float" href="https://wa.me/919710421400" target="_blank" aria-label="WhatsApp">WA</a><script>
-const KEY='cgs_reviews_v1';
-const seed=[];
-const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-function getReviews(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch{return[]}}
-function saveReviews(r){localStorage.setItem(KEY,JSON.stringify(r))}
-function stars(n){return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n)}
-function render(){const reviews=getReviews();const list=document.getElementById('reviewList');const count=reviews.length;const avg=count?reviews.reduce((a,r)=>a+Number(r.rating),0)/count:0;document.getElementById('reviewCount').textContent=count;document.getElementById('averageRating').textContent=avg.toFixed(1);document.getElementById('averageStars').textContent=stars(Math.round(avg));list.innerHTML=count?reviews.slice().reverse().map(r=>'<article class="review-card"><div class="stars">'+stars(Number(r.rating))+'</div><p>“'+escapeHTML(r.text)+'”</p><div class="review-meta"><strong>'+escapeHTML(r.name)+'</strong><span>'+new Date(r.date).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})+'</span></div></article>').join(''):'<div class="empty-reviews"><span class="eyebrow">NO REVIEWS YET</span><h3>Be the first to share your experience.</h3><p>Your review will appear here after you submit it.</p></div>'}
-document.getElementById('reviewForm').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('reviewName').value.trim();const rating=Number(document.getElementById('reviewRating').value);const text=document.getElementById('reviewText').value.trim();if(!name||!rating||!text)return;const reviews=getReviews();reviews.push({name,rating,text,date:new Date().toISOString()});saveReviews(reviews);e.target.reset();document.getElementById('reviewMessage').textContent='Thank you — your review has been added.';render()});render();
-</script><script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Client reviews for Chennai Gravity Studios.">
+<title>Reviews | Chennai Gravity Studios</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.reviews-only{max-width:1180px;margin:0 auto;padding:80px 24px 110px}
+.reviews-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:55px}
+.review-card{padding:34px;border:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.5)}
+.review-card .stars{font-size:18px;letter-spacing:3px;margin-bottom:22px}
+.review-card p{font-size:18px;line-height:1.7;margin:0 0 28px}
+.review-meta{display:flex;justify-content:space-between;gap:20px;align-items:center}
+.review-meta strong{font-size:14px;text-transform:uppercase;letter-spacing:1px}
+.review-meta span{font-size:12px;opacity:.6}
+.review-source{margin-top:40px;font-size:12px;opacity:.65}
+@media(max-width:760px){.reviews-only{padding:55px 20px 80px}.reviews-grid{grid-template-columns:1fr;margin-top:38px}.review-card{padding:26px}.review-card p{font-size:16px}}
+</style>
+</head>
+<body>
+<header>
+<a class="brand" href="index.html"><span>CHENNAI</span><strong>GRAVITY</strong><small>STUDIOS</small></a>
+<button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+<div class="side-menu" id="sideMenu">
+<div class="side-menu-top">
+<a class="brand" href="index.html"><span>CHENNAI</span><strong>GRAVITY</strong><small>STUDIOS</small></a>
+<button class="menu-close" id="menuClose" aria-label="Close menu">×</button>
+</div>
+<nav class="side-nav">
+<a href="index.html">Home <span>01</span></a>
+<a href="about.html">About <span>02</span></a>
+<a href="services.html">Services <span>03</span></a>
+<a href="portfolio.html">Portfolio <span>04</span></a>
+<a href="reviews.html">Reviews <span>05</span></a>
+<a href="contact.html">Contact <span>06</span></a>
+</nav>
+<div class="side-menu-bottom">
+<a href="https://www.instagram.com/chennaigravitystudios?stkn=cXQwcTYzNXhwazcz" target="_blank" rel="noopener">Instagram ↗</a>
+<a href="https://youtube.com/@chennaigravity2805?si=CINxiaw2oVml3UkT" target="_blank" rel="noopener">YouTube ↗</a>
+</div>
+</div>
+<div class="menu-overlay" id="menuOverlay"></div>
+</header>
+
+<main>
+<section class="page-hero">
+<p class="eyebrow">CLIENT REVIEWS</p>
+<h1>Real words.<br><em>Real stories.</em></h1>
+<p>What clients say about their experience with Chennai Gravity Studios.</p>
+</section>
+
+<section class="reviews-only">
+<div class="reviews-grid">
+
+<article class="review-card">
+<div class="stars">★★★★★</div>
+<p>“Amazing talent. They really do understand the needs of clients and are so energetic to work with.”</p>
+<div class="review-meta"><strong>Praveen Kumar</strong><span>4.8 / 5</span></div>
+</article>
+
+<article class="review-card">
+<div class="stars">★★★★★</div>
+<p>“The team is very responsive. Even if we forget to give them the selected pictures, they will not.”</p>
+<div class="review-meta"><strong>Srividya Ramachandran</strong><span>5.0 / 5</span></div>
+</article>
+
+<article class="review-card">
+<div class="stars">★★★★★</div>
+<p>“I booked Chennai Gravity for my brother's wedding. Honestly, the team was great and professional.”</p>
+<div class="review-meta"><strong>Sherin</strong><span>4.6 / 5</span></div>
+</article>
+
+<article class="review-card">
+<div class="stars">★★★★★</div>
+<p>“One of the best photographer I ever seen!!! He capture the best candid and freeze the memory beautifully.”</p>
+<div class="review-meta"><strong>Narayanan</strong><span>5.0 / 5</span></div>
+</article>
+
+<article class="review-card">
+<div class="stars">★★★★☆</div>
+<p>“Chennai Gravity team did a remarkable work for my cousin's wedding and shoot. Made a lifetime memory.”</p>
+<div class="review-meta"><strong>Daniel</strong><span>4.2 / 5</span></div>
+</article>
+
+</div>
+<p class="review-source">Reviews shown here are published client feedback sourced from WeddingBazaar's Chennai Gravity Studios listing.</p>
+</section>
+</main>
+
+<footer>
+<span>© Chennai Gravity Studios</span>
+<span>Wedding Photography & Cinematography</span>
+<div class="footer-social">
+<a href="https://www.instagram.com/chennaigravitystudios?stkn=cXQwcTYzNXhwazcz" target="_blank" rel="noopener">Instagram</a>
+<a href="https://youtube.com/@chennaigravity2805?si=CINxiaw2oVml3UkT" target="_blank" rel="noopener">YouTube</a>
+<a href="reviews.html">Reviews</a>
+</div>
+</footer>
+
+<a class="float" href="https://wa.me/919710421400" target="_blank" aria-label="WhatsApp">WA</a>
+
+<script>
 const menuToggle=document.getElementById('menuToggle'),sideMenu=document.getElementById('sideMenu'),menuOverlay=document.getElementById('menuOverlay'),menuClose=document.getElementById('menuClose');
-function setMenu(open){sideMenu.classList.toggle('open',open);menuOverlay.classList.toggle('show',open);menuToggle.classList.toggle('active',open);menuToggle.setAttribute('aria-expanded',open);document.body.classList.toggle('menu-open',open)}
-menuToggle.addEventListener('click',()=>setMenu(true));menuClose.addEventListener('click',()=>setMenu(false));menuOverlay.addEventListener('click',()=>setMenu(false));document.querySelectorAll('.side-nav a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
-</script></body></html>
+function setMenu(open){
+sideMenu.classList.toggle('open',open);
+menuOverlay.classList.toggle('show',open);
+menuToggle.classList.toggle('active',open);
+menuToggle.setAttribute('aria-expanded',open);
+document.body.classList.toggle('menu-open',open)
+}
+menuToggle.addEventListener('click',()=>setMenu(true));
+menuClose.addEventListener('click',()=>setMenu(false));
+menuOverlay.addEventListener('click',()=>setMenu(false));
+document.querySelectorAll('.side-nav a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+</script>
+</body>
+</html>
